@@ -1,16 +1,15 @@
 package com.tbau.dijkstraapsumap;
 import java.util.*;
-
 /**
- * Created by sbickel20 on 3/28/18.
+ * Created by sbickel20 on 4/2/18.
  */
 
-public class Dijkstra {
+public class Graph {
     private int numVertices;
     private ArrayList<ArrayList<Integer>>Matrix;
     private static final int MAX_WEIGHT = Integer.MAX_VALUE;
 
-    Dijkstra(int numVertices){
+    Graph(int numVertices){
         this.numVertices = numVertices;
         Matrix = new ArrayList<ArrayList<Integer>>();
         for (int row = 0; row < this.numVertices; row++){
@@ -24,7 +23,7 @@ public class Dijkstra {
         }
     }
 
-    private void copyFrom(final Dijkstra graph){
+    private void copyFrom(final Graph graph){
         this.numVertices = graph.numVertices;
         Matrix = new ArrayList<ArrayList<Integer>>(this.numVertices);
         for (int row = 0; row < this.numVertices; row++){

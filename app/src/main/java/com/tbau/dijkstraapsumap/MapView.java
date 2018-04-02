@@ -90,7 +90,7 @@ public class MapView extends View implements View.OnTouchListener {
                 int x = (int)event.getX();
                 int y = (int)event.getY();
 
-                Toast.makeText(getContext(), "click event", Toast.LENGTH_LONG);
+                Toast.makeText(getContext(), "click event", Toast.LENGTH_LONG).show();
 
                 Log.i("Point: ",x+"  "+y);
                 for(int i=0; i<clickablePoints.size();i++){
