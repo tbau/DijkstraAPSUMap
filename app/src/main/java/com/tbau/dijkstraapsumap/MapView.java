@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
+import android.hardware.camera2.TotalCaptureResult;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -87,6 +89,8 @@ public class MapView extends View implements View.OnTouchListener {
             case MotionEvent.ACTION_DOWN:
                 int x = (int)event.getX();
                 int y = (int)event.getY();
+
+                Toast.makeText(getContext(), "click event", Toast.LENGTH_LONG);
 
                 Log.i("Point: ",x+"  "+y);
                 for(int i=0; i<clickablePoints.size();i++){
