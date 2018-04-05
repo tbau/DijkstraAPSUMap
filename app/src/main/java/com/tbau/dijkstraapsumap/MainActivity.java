@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 builder.setTitle("Points")
                         .setMessage("Your two points are ("
-                                +mv.clickablePoints.get(mv.selected[0]).x+", "
-                                +mv.clickablePoints.get(mv.selected[0]).y
-                                +mv.clickablePoints.get(mv.selected[1]).x+", "
-                                +mv.clickablePoints.get(mv.selected[1]).y)
+                                +mv.points.get(mv.selected[0]).x+", "
+                                +mv.points.get(mv.selected[0]).y
+                                +mv.points.get(mv.selected[1]).x+", "
+                                +mv.points.get(mv.selected[1]).y)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete

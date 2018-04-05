@@ -1,21 +1,16 @@
 package com.tbau.dijkstraapsumap;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -31,7 +26,7 @@ public class MapView extends View implements View.OnTouchListener {
 
     Paint paint;         //Used to draw on Canvas
 
-    ArrayList<Point> clickablePoints;
+    ArrayList<Point> points;
     int selected[]=new int[2];
     boolean first=true;
 
@@ -65,10 +60,10 @@ public class MapView extends View implements View.OnTouchListener {
         currentWidth=dm.widthPixels;
         currentHeight= dm.heightPixels;
 
-        clickablePoints = new ArrayList();
+        points = new ArrayList<>();
 
-        clickablePoints.add(0,new Point(1745,1145));
-        clickablePoints.add(1,new Point(1850,1020));
+        points.add(0,new Point(1745,1145));
+        points.add(1,new Point(1850,1020));
 
         this.setOnTouchListener(this);
 
@@ -89,11 +84,11 @@ public class MapView extends View implements View.OnTouchListener {
                 int y = (int)event.getY();
 
                 Log.i("Point: ",x+"  "+y);
-                for(int i=0; i<clickablePoints.size();i++){
-                    if(x>clickablePoints.get(i).x*1600/3200.0-20
-                       &&x<clickablePoints.get(i).x*1600/3200+20
-                       &&y>clickablePoints.get(i).y-20
-                       &&y<clickablePoints.get(i).y+20){
+                for(int i = 0; i< 60; i++){
+                    if(x> points.get(i).x*1600/3200.0-20
+                       &&x< points.get(i).x*1600/3200+20
+                       &&y> points.get(i).y-20
+                       &&y< points.get(i).y+20){
                         if(first)
                             selected[0] = i;
                         else
