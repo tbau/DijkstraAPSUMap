@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mv = (MapView) this.findViewById(R.id.mapView);
 
         start.setOnClickListener(this);
+        end.setOnClickListener(this);
+        calc.setOnClickListener(this);
     }
 
     @Override
