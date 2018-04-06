@@ -1,4 +1,7 @@
 package com.tbau.dijkstraapsumap;
+import android.graphics.Point;
+
+import java.lang.reflect.Array;
 import java.util.*;
 /**
  * Created by sbickel20 on 4/2/18.
@@ -6,40 +9,45 @@ import java.util.*;
 
 public class Graph {
     private int numVertices;
-    private ArrayList<ArrayList<Integer>>Matrix;
+    private int [][] Matrix;
     private static final int MAX_WEIGHT = Integer.MAX_VALUE;
+    private ArrayList<Point> points;
 
-    Graph(int numVertices){
+    Graph(int numVertices, ArrayList<Point> p){
         this.numVertices = numVertices;
-        Matrix = new ArrayList<ArrayList<Integer>>();
+        Matrix = new int[numVertices][numVertices];
         for (int row = 0; row < this.numVertices; row++){
             for (int column = 0; column < this.numVertices; column++){
                 if (row == column){
-                    this.Matrix.get(row).set(column, 0);
+                    this.Matrix[row][column]= 0;
                 }else{
-                    this.Matrix.get(row).set(column, this.MAX_WEIGHT);
+                    this.Matrix[row][column]= this.MAX_WEIGHT;
                 }
             }
         }
+        points = p;
     }
 
     private void copyFrom(final Graph graph){
         this.numVertices = graph.numVertices;
-        Matrix = new ArrayList<ArrayList<Integer>>(this.numVertices);
+        Matrix = new int[numVertices][numVertices];
         for (int row = 0; row < this.numVertices; row++){
             for (int column = 0; column < this.numVertices; column++){
-                this.Matrix.get(row).set(column, graph.Matrix.get(row).get(column));
+                this.Matrix[row][column] = graph.Matrix[row][column];
             }
         }
     }
 
-    public boolean addEdge(int sourceVertex, int targetVertex, int weight){
+    public boolean addEdge(int sourceVertex, int targetVertex){
         if (sourceVertex > (this.numVertices-1) || sourceVertex < 0 || targetVertex > (this.numVertices-1)
-                || targetVertex < 0 || weight < 0){
+                || targetVertex < 0){
             return false;
         }
+        this.Matrix[sourceVertex][targetVertex] = (int) Math.sqrt(Math.pow(points.get(sourceVertex).x-points.get(targetVertex).x,2)+
+                        Math.pow(points.get(sourceVertex).y-points.get(targetVertex).y,2));
 
-        this.Matrix.get(sourceVertex).set(targetVertex, weight);
+        this.Matrix[targetVertex][sourceVertex] = (int) Math.sqrt(Math.pow(points.get(sourceVertex).x-points.get(targetVertex).x,2)+
+                Math.pow(points.get(sourceVertex).y-points.get(targetVertex).y,2));
         return true;
     }
 
@@ -78,10 +86,10 @@ public class Graph {
             num_checked++;
 
             for (int i = 0 ; i < this.numVertices; i++){
-                if (this.Matrix.get(v).get(i) != 0 && this.Matrix.get(v).get(i) != this.MAX_WEIGHT
+                if (this.Matrix[v][i] != 0 && this.Matrix[v][i] != this.MAX_WEIGHT
                         && toBeChecked.get(i) == true){
-                    if (currDist[i] > (currDist[v] + this.Matrix.get(v).get(i))){
-                        currDist[i] = currDist[v] + this.Matrix.get(v).get(i);
+                    if (currDist[i] > (currDist[v] + this.Matrix[v][i])){
+                        currDist[i] = currDist[v] + this.Matrix[v][i];
                         predecessor[i] = v;
                     }
                 }
@@ -92,7 +100,7 @@ public class Graph {
     public void displayMatrix(){
         for (int row = 0; row < this.numVertices; row++){
             for (int column = 0; column < this.numVertices; column++){
-                System.out.print(this.Matrix.get(row).get(column) + " ");
+                System.out.print(this.Matrix[row][column] + " ");
             }
             System.out.println();
         }
