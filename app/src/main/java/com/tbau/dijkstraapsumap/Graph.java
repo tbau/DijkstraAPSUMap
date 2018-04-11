@@ -124,16 +124,18 @@ public class Graph {
 
 
         mv.paths.reset();
-
-        Log.i("Path"+String.valueOf(mv.selected[1]),String.valueOf(mv.selected[1]));
+        Log.i("I","-----------------------------------------------------------------------------------------------------------------");
+        Log.i("Path 0",String.valueOf(mv.selected[1]));
         mv.paths.moveTo(mv.points.get(mv.selected[1]).x * 1600 / 3200.0f, mv.points.get(mv.selected[1]).y * 840 / 1680.0f);
         mv.paths.lineTo(mv.points.get(path[0]).x * 1600 / 3200.0f, mv.points.get(path[0]).y * 840 / 1680.0f);
 
         for (int i = 0; i < k-1; i++) {
-            Log.i("Path"+String.valueOf(i), String.valueOf(path[i]));
+            Log.i("Path "+String.valueOf(i+1), String.valueOf(path[i]));
             mv.paths.moveTo(mv.points.get(path[i]).x * 1600 / 3200.0f, mv.points.get(path[i]).y * 840 / 1680.0f);
             mv.paths.lineTo(mv.points.get(path[i + 1]).x * 1600 / 3200.0f, mv.points.get(path[i + 1]).y * 840 / 1680.0f);
         }
+        Log.i("Path "+String.valueOf(k-1), String.valueOf(path[k-1]));
+
     }
 }
 
