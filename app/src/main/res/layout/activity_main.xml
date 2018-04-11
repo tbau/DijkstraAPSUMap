@@ -30,18 +30,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/end_button"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="76dp"
+        android:layout_below="@+id/start_button"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reset_button"
+        android:textSize="14sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="40dp" />
 
     <Button
         android:text="Calculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/calc_button"
-        android:layout_marginBottom="16dp"
         android:textSize="10sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/end_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="96dp" />
 
 
 </RelativeLayout>

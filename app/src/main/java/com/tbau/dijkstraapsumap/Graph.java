@@ -1,5 +1,6 @@
 package com.tbau.dijkstraapsumap;
 import android.graphics.Point;
+import android.util.Log;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -62,32 +63,32 @@ public class Graph {
         int num_checked = 0;
         int v = 0;
 
-        ArrayList<Boolean> toBeChecked = new ArrayList<>(this.numVertices);
+        boolean[] toBeChecked = new boolean[this.numVertices];
 
         for (int i = 0; i < this.numVertices; i++){
-            toBeChecked.set(i, true);
+            toBeChecked[i]= true;
         }
 
         while(!(num_checked >= this.numVertices)){
             for (int i = 0; i < this.numVertices; i++){
-                if (toBeChecked.get(i) == true){
+                if (toBeChecked[i] == true){
                     v = i;
                     break;
                 }
             }
 
             for (int i = 0; i < this.numVertices; i++){
-                if (toBeChecked.get(i) == true && (currDist[i] < currDist[v])){
+                if (toBeChecked[i] == true && (currDist[i] < currDist[v])){
                     v = i;
                 }
             }
 
-            toBeChecked.set(v, false);
+            toBeChecked[v]= false;
             num_checked++;
 
             for (int i = 0 ; i < this.numVertices; i++){
                 if (this.Matrix[v][i] != 0 && this.Matrix[v][i] != this.MAX_WEIGHT
-                        && toBeChecked.get(i) == true){
+                        && toBeChecked[i] == true){
                     if (currDist[i] > (currDist[v] + this.Matrix[v][i])){
                         currDist[i] = currDist[v] + this.Matrix[v][i];
                         predecessor[i] = v;
@@ -98,11 +99,40 @@ public class Graph {
     }
 
     public void displayMatrix(){
+        String c = "";
+
+        for(int i=0;i<81;i++){
+            c+=String.format("%6s",String.valueOf(i));
+        }
+        Log.i("Column    ",c);
+        String r="";
         for (int row = 0; row < this.numVertices; row++){
             for (int column = 0; column < this.numVertices; column++){
-                System.out.print(this.Matrix[row][column] + " ");
+                if(this.Matrix[row][column]==Integer.MAX_VALUE) {
+
+                    r+=String.format("%6s","INF");
+                }
+                else
+                r+=String.format("%6s",String.valueOf(this.Matrix[row][column]));
             }
-            System.out.println();
+            Log.i("Row   ",String.format("%3s",row)+r);
+            r="";
+        }
+    }
+
+    public void displayPath(int[] path, int k, MapView mv) {
+
+
+        mv.paths.reset();
+
+        Log.i("Path"+String.valueOf(mv.selected[1]),String.valueOf(mv.selected[1]));
+        mv.paths.moveTo(mv.points.get(mv.selected[1]).x * 1600 / 3200.0f, mv.points.get(mv.selected[1]).y * 840 / 1680.0f);
+        mv.paths.lineTo(mv.points.get(path[0]).x * 1600 / 3200.0f, mv.points.get(path[0]).y * 840 / 1680.0f);
+
+        for (int i = 0; i < k-1; i++) {
+            Log.i("Path"+String.valueOf(i), String.valueOf(path[i]));
+            mv.paths.moveTo(mv.points.get(path[i]).x * 1600 / 3200.0f, mv.points.get(path[i]).y * 840 / 1680.0f);
+            mv.paths.lineTo(mv.points.get(path[i + 1]).x * 1600 / 3200.0f, mv.points.get(path[i + 1]).y * 840 / 1680.0f);
         }
     }
 }
